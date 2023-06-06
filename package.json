@@ -1,5 +1,6 @@
 {
   "name": "honkai",
+  "homepage": "https://lewkans.github.io/honkai/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
