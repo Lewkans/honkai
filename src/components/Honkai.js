@@ -49,6 +49,9 @@ const Honkai = () => {
             value={currLevel}
             error={!isValidLevel(currLevel)}
             placeholder='Enter your current level'
+            onBlur={(e) => {
+                (parseInt(e.target.value) <= parseInt(currLevel)) && setGoalLevel(parseInt(currLevel) + 1)
+            }}
         />
         <Typography>Equilibrium Level: {getEquilibriumLevel(currLevel)}</Typography>
         <Typography>Current xp:</Typography>
@@ -74,6 +77,9 @@ const Honkai = () => {
             value={goalLevel}
             error={!isValidLevel(goalLevel) || parseInt(currLevel) >= parseInt(goalLevel)}
             placeholder='Enter your goal level'
+            onBlur={(e) => {
+                (parseInt(e.target.value) <= parseInt(currLevel)) && setGoalLevel(parseInt(currLevel) + 1)
+            }}
         />
         <Typography>Fuel:</Typography>
         <TextField
