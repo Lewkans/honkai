@@ -1,6 +1,6 @@
 import React from 'react';
 import {data} from '../data/honkaidata.js';
-import { TextField, Typography } from '@mui/material';
+import { InputAdornment, TextField, Typography } from '@mui/material';
 
 const Honkai = () => {
     // const MAX_CAPACITY = 180
@@ -53,14 +53,18 @@ const Honkai = () => {
         <Typography>Equilibrium Level: {getEquilibriumLevel(currLevel)}</Typography>
         <Typography>Current xp:</Typography>
         <TextField
-            inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
+            InputProps={{
+                inputMode: 'numeric',
+                pattern: '[0-9]*',
+                endAdornment: <InputAdornment position='end'>/{data.exp[parseInt(currLevel)]}</InputAdornment>
+            }}
             onChange={(e) => {
                 (e.target.value === "" || /^[0-9\b]+$/.test(e.target.value)) && setCurrExp(e.target.value)
             }}
             value={currExp}
             error={!(currExp >= 0 && currExp < data.exp[parseInt(currLevel)])}
             placeholder='Enter your current exp'
-        />/{data.exp[parseInt(currLevel)]}
+        />
         <Typography>Goal Level: (Max {data.exp.length})</Typography>
         <TextField
             inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
@@ -89,7 +93,7 @@ const Honkai = () => {
         />
         <Typography>Total exp: {totalExp(goalLevel)}</Typography>
         <Typography>Diff exp: {totalExp(goalLevel) - totalExp(currLevel) - currExp}</Typography>
-        <Typography>Daily exp gain: {24 * RATIO * 10 + 5 * data.daily[getEquilibriumLevel(currLevel)]}</Typography>
+        <Typography>Daily exp gain (240 Energy + Daily): {24 * RATIO * 10 + 5 * data.daily[getEquilibriumLevel(currLevel)]}</Typography>
         <Typography>Fuel exp: {FUEL * fuel * RATIO}</Typography>
         <Typography>Immersifier exp: {IMMERSIFIER * immersifier * RATIO}</Typography>
         <Typography>Time to reach level: ~{
