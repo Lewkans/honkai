@@ -39,7 +39,7 @@ const Honkai = () => {
       
     return (
     <>
-        <Typography variant='h4'>Trailblazer Experience Requirement</Typography>
+        <Typography variant='h4'>Trailblazer Experience Calculator</Typography>
         <Typography>Current Level: (Max {data.exp.length - 1})</Typography>
         <TextField
             inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
