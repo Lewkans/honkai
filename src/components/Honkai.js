@@ -3,7 +3,7 @@ import {data} from '../data/honkaidata.js';
 import { TextField, Typography } from '@mui/material';
 
 const Honkai = () => {
-    const MAX_CAPACITY = 180
+    // const MAX_CAPACITY = 180
     const FUEL = 60
     const IMMERSIFIER = 40
     const RATIO = 5
@@ -39,6 +39,7 @@ const Honkai = () => {
       
     return (
     <>
+        <Typography variant='h4'>Trailblazer Experience Requirement</Typography>
         <Typography>Current Level: (Max {data.exp.length - 1})</Typography>
         <TextField
             inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
