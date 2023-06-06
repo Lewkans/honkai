@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/honkai/static/css/main.073c9b0a.css",
-    "main.js": "/honkai/static/js/main.c8adb003.js",
+    "main.js": "/honkai/static/js/main.6e800b0e.js",
     "static/js/787.27ee5d51.chunk.js": "/honkai/static/js/787.27ee5d51.chunk.js",
     "index.html": "/honkai/index.html",
     "main.073c9b0a.css.map": "/honkai/static/css/main.073c9b0a.css.map",
-    "main.c8adb003.js.map": "/honkai/static/js/main.c8adb003.js.map",
+    "main.6e800b0e.js.map": "/honkai/static/js/main.6e800b0e.js.map",
     "787.27ee5d51.chunk.js.map": "/honkai/static/js/787.27ee5d51.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.c8adb003.js"
+    "static/js/main.6e800b0e.js"
   ]
 }
