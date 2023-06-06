@@ -100,7 +100,10 @@ const Honkai = () => {
             (totalExp(goalLevel) - totalExp(currLevel) - currExp - FUEL * fuel * RATIO - IMMERSIFIER * immersifier * RATIO)/
             (24 * RATIO * 10 + 5 * data.daily[getEquilibriumLevel(currLevel)])
         } days</Typography>
-        <Typography variant='h6'>Note: Takes full day (24hrs) into account when calculating daily exp gain</Typography>
+        <Typography variant='h6'>
+            Note: Takes full day (24hrs) into account when calculating daily exp gain<br />
+            Note2: Doesn't take into account jumping different equilibrium levels (e.g. lvl30 &gt; lvl60) yet
+        </Typography>
     </>)
 }
 
