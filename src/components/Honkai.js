@@ -10,6 +10,7 @@ const Honkai = () => {
     
     const [currLevel, setCurrLevel] = React.useState(1);
     const [currExp, setCurrExp] = React.useState(0);
+    const [currPower, setCurrPower] = React.useState(0);
     const [fuel, setFuel] = React.useState(0);
     const [immersifier, setImmersifier] = React.useState(0);
     const [goalLevel, setGoalLevel] = React.useState(2);
@@ -36,6 +37,22 @@ const Honkai = () => {
         }
         return data.exp.slice(0, parseInt(level)).reduce((prev, curr) => prev + curr, 0);
     }
+    
+    const powerExp = (power) => {
+        return power * RATIO;
+    }
+    
+    const fuelExp = (n) => {
+        return FUEL * n * RATIO;
+    }
+    
+    const immersifierExp = (n) => {
+        return IMMERSIFIER * n * RATIO;
+    }
+    
+    const dailyExp = (level) => {
+        return 24 * RATIO * 10 + 5 * data.daily[getEquilibriumLevel(level)];
+    }
       
     return (
     <>
@@ -50,7 +67,7 @@ const Honkai = () => {
             error={!isValidLevel(currLevel)}
             placeholder='Enter your current level'
             onBlur={(e) => {
-                (parseInt(e.target.value) <= parseInt(currLevel)) && setGoalLevel(parseInt(currLevel) + 1)
+                (parseInt(e.target.value) >= parseInt(goalLevel)) && setGoalLevel(parseInt(currLevel) + 1)
             }}
         />
         <Typography>Equilibrium Level: {getEquilibriumLevel(currLevel)}</Typography>
@@ -67,6 +84,20 @@ const Honkai = () => {
             value={currExp}
             error={!(currExp >= 0 && currExp < data.exp[parseInt(currLevel)])}
             placeholder='Enter your current exp'
+        />
+        <Typography>Current power:</Typography>
+        <TextField
+            InputProps={{
+                inputMode: 'numeric',
+                pattern: '[0-9]*',
+                endAdornment: <InputAdornment position='end'>/180</InputAdornment>
+            }}
+            onChange={(e) => {
+                (e.target.value === "" || /^[0-9\b]+$/.test(e.target.value)) && setCurrPower(e.target.value)
+            }}
+            value={currPower}
+            error={!(currPower >= 0 && currPower <= 180)}
+            placeholder='Enter your current power'
         />
         <Typography>Goal Level: (Max {data.exp.length})</Typography>
         <TextField
@@ -99,12 +130,13 @@ const Honkai = () => {
         />
         <Typography>Total exp: {totalExp(goalLevel)}</Typography>
         <Typography>Diff exp: {totalExp(goalLevel) - totalExp(currLevel) - currExp}</Typography>
-        <Typography>Daily exp gain (240 Energy + Daily): {24 * RATIO * 10 + 5 * data.daily[getEquilibriumLevel(currLevel)]}</Typography>
-        <Typography>Fuel exp: {FUEL * fuel * RATIO}</Typography>
-        <Typography>Immersifier exp: {IMMERSIFIER * immersifier * RATIO}</Typography>
+        <Typography>Daily exp gain (240 Energy + Daily): {dailyExp(currLevel)}</Typography>
+        <Typography>Fuel exp: {fuelExp(fuel)}</Typography>
+        <Typography>Immersifier exp: {immersifierExp(immersifier)}</Typography>
         <Typography>Time to reach level: ~{
-            (totalExp(goalLevel) - totalExp(currLevel) - currExp - FUEL * fuel * RATIO - IMMERSIFIER * immersifier * RATIO)/
-            (24 * RATIO * 10 + 5 * data.daily[getEquilibriumLevel(currLevel)])
+            ((totalExp(goalLevel) - totalExp(currLevel) - currExp - powerExp(currPower) - fuelExp(fuel) - immersifierExp(immersifier))/dailyExp(currLevel) >= 0) ?
+            (totalExp(goalLevel) - totalExp(currLevel) - currExp - powerExp(currPower) - fuelExp(fuel) - immersifierExp(immersifier))/dailyExp(currLevel) :
+            0
         } days</Typography>
         <Typography variant='h6'>
             Note: Takes full day (24hrs) into account when calculating daily exp gain<br />
