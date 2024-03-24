@@ -90,13 +90,13 @@ const Honkai = () => {
             InputProps={{
                 inputMode: 'numeric',
                 pattern: '[0-9]*',
-                endAdornment: <InputAdornment position='end'>/180</InputAdornment>
+                endAdornment: <InputAdornment position='end'>/240</InputAdornment>
             }}
             onChange={(e) => {
                 (e.target.value === "" || /^[0-9\b]+$/.test(e.target.value)) && setCurrPower(e.target.value)
             }}
             value={currPower}
-            error={!(currPower >= 0 && currPower <= 180)}
+            error={!(currPower >= 0 && currPower <= 240)}
             placeholder='Enter your current power'
         />
         <Typography>Goal Level: (Max {data.exp.length})</Typography>
